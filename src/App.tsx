@@ -1,5 +1,5 @@
 // src/App.tsx - Updated with new dashboard route
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ProductList, ProductDetails, AddProduct, NotFound } from '@/pages';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
         
         {/* 404 page for unknown routes */}
         <Route path="/not-found" element={<NotFound />} />
-        <Route path="*" element={<Navigate to="/not-found" replace />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
