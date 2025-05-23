@@ -1,4 +1,3 @@
-// src/hooks/useResponsive.ts - Custom hook for responsive behavior
 import { useState, useEffect } from "react";
 
 interface Breakpoints {

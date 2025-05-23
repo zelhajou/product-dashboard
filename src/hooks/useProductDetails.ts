@@ -1,4 +1,3 @@
-// src/hooks/useProductDetails.ts
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useProductStore } from "@/store";
@@ -24,7 +23,6 @@ export function useProductDetails() {
       setIsLoading(true);
 
       try {
-        // Ensure products are loaded
         await loadProducts();
         const foundProduct = getProductById(Number(id));
         setProduct(foundProduct || null);
@@ -45,7 +43,6 @@ export function useProductDetails() {
 
   const handleEdit = () => {
     if (product) {
-      // Navigate to edit page (you can implement this later)
       console.log("Edit product:", product.id);
     }
   };

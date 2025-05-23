@@ -18,7 +18,6 @@ export function useProductForm() {
         },
       });
     } catch (error) {
-      // Re-throw to let the form component handle the error display
       throw error;
     }
   };

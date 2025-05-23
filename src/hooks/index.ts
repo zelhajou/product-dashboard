@@ -1,4 +1,3 @@
-// src/hooks/index.ts - Updated with new hooks
 export { useProductStats } from './useProductStats';
 export { useProductForm } from './useProductForm';
 export { useProductList } from './useProductList';
