@@ -44,8 +44,6 @@ export function ProductList() {
   if (isLoading) {
     return (
       <Layout 
-        title="Products" 
-        description="Manage your product inventory"
         breadcrumbs={[{ label: "Products" }]}
       >
         <LoadingSpinner size="lg" message="Loading products..." />
@@ -56,8 +54,6 @@ export function ProductList() {
   if (error) {
     return (
       <Layout 
-        title="Products" 
-        description="Manage your product inventory"
         breadcrumbs={[{ label: "Products" }]}
       >
         <AlertCard
@@ -81,8 +77,6 @@ export function ProductList() {
 
   return (
     <Layout
-      title="Products"
-      description="Manage your product inventory with powerful filtering and sorting"
       breadcrumbs={[{ label: "Products" }]}
     >
       {/* Quick Stats */}
