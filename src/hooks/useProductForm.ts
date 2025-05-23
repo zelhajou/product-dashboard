@@ -1,4 +1,3 @@
-// src/hooks/useProductForm.ts
 import { useNavigate } from "react-router-dom";
 import { useProductStore } from "@/store";
 import type { ProductFormData } from "@/types";

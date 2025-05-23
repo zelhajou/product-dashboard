@@ -1,4 +1,3 @@
-// src/hooks/useProductList.ts
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -22,7 +21,9 @@ export function useProductList() {
   const updateSort = useProductStore((state) => state.updateSort);
   const clearFilters = useProductStore((state) => state.clearFilters);
   const getProductStats = useProductStore((state) => state.getProductStats);
-  const getLowStockProducts = useProductStore((state) => state.getLowStockProducts);
+  const getLowStockProducts = useProductStore(
+    (state) => state.getLowStockProducts
+  );
 
   // Store selectors
   const allProducts = useProducts();

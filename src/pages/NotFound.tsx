@@ -1,4 +1,3 @@
-// src/pages/NotFound.tsx - Updated for new layout
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout";
 import { Button } from "@/components/ui";

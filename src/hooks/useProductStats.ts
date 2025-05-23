@@ -1,4 +1,3 @@
-// src/hooks/useProductStats.ts
 import { useMemo } from "react";
 import { useProductStore } from "@/store";
 import { formatters } from "@/utils";

@@ -45,7 +45,7 @@ export const useProductStore = create<ProductStore>()(
           category: "",
           status: "",
           searchTerm: "",
-          stockLevel: "", // Added stockLevel to initial filters
+          stockLevel: "",
         },
         sortConfig: {
           field: "name",
@@ -147,7 +147,7 @@ export const useProductStore = create<ProductStore>()(
               category: "",
               status: "",
               searchTerm: "",
-              stockLevel: "", // Clear stockLevel filter too
+              stockLevel: "",
             },
           });
           get().applyFiltersAndSort();
