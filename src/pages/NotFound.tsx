@@ -1,96 +1,67 @@
+// src/pages/NotFound.tsx - Updated for new layout
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout";
 import { Button } from "@/components/ui";
+import { Icons } from "@/components/icons";
 
 export function NotFound() {
   return (
-    <Layout>
+    <Layout
+      title="Page Not Found"
+      breadcrumbs={[{ label: "404 Error" }]}
+    >
       <div className="min-h-[60vh] flex items-center justify-center">
-        <div className="text-center">
-          {/* 404 illustration */}
+        <div className="text-center max-w-md mx-auto">
+          {/* 404 Illustration */}
           <div className="mb-8">
-            <div className="text-9xl font-bold text-gray-300 mb-4">404</div>
-            <div className="w-24 h-24 mx-auto mb-6 text-gray-400">
-              <svg
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                className="w-full h-full"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.529-1.007-6.071-2.625M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-              </svg>
+            <div className="text-8xl sm:text-9xl font-bold text-gray-200 mb-4 select-none">
+              404
+            </div>
+            <div className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-6 text-gray-300">
+              <Icons.search className="w-full h-full" />
             </div>
           </div>
 
-          {/* Error messaging */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          {/* Error Content */}
+          <div className="mb-8 space-y-4">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
               Oops! Page not found
             </h1>
-            <p className="text-lg text-gray-600 mb-2">
-              The page you're looking for doesn't exist or has been moved.
-            </p>
-            <p className="text-sm text-gray-500">
-              Don't worry, let's get you back on track!
-            </p>
+            <div className="space-y-2">
+              <p className="text-base sm:text-lg text-gray-600">
+                The page you're looking for doesn't exist or has been moved.
+              </p>
+              <p className="text-sm text-gray-500">
+                Don't worry, let's get you back on track!
+              </p>
+            </div>
           </div>
 
-          {/* Ation buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild>
-              <Link to="/products">
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 5a2 2 0 012-2h2a2 2 0 012 2v0H8v0z"
-                  />
-                </svg>
-                View All Products
-              </Link>
-            </Button>
+          {/* Action Buttons */}
+          <div className="space-y-4">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button asChild leftIcon="activity" className="flex-1 sm:flex-none">
+                <Link to="/">Go to Dashboard</Link>
+              </Button>
 
-            <Button variant="outline" asChild>
-              <Link to="/add-product">
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                  />
-                </svg>
-                Add New Product
-              </Link>
+              <Button variant="outline" asChild leftIcon="product" className="flex-1 sm:flex-none">
+                <Link to="/products">View Products</Link>
+              </Button>
+            </div>
+
+            <Button variant="secondary" asChild leftIcon="add" className="w-full sm:w-auto">
+              <Link to="/add-product">Add New Product</Link>
             </Button>
           </div>
 
-          {/* Modern help text */}
+          {/* Help Section */}
           <div className="mt-12 p-4 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Icons.info className="w-4 h-4 text-gray-500" />
+              <p className="text-sm font-medium text-gray-700">Need help?</p>
+            </div>
             <p className="text-sm text-gray-600">
-              Need help? Try checking the URL or use the navigation menu above.
+              Try checking the URL or use the navigation menu to find what you're looking for.
             </p>
           </div>
         </div>
