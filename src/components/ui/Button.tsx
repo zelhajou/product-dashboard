@@ -57,10 +57,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     if (asChild && React.isValidElement(children)) {
       const element = children as React.ReactElement<any, any>;
-      const childProps = { ...props };
-      if ('className' in element.props) {
-        (childProps as any).className = combinedClassName;
-      }
+      const childProps = { ...props, className: combinedClassName };
       return React.cloneElement(element, childProps);
     }
 
