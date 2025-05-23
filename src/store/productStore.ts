@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
 import {
   Product,
   ProductFilters,
@@ -33,170 +33,194 @@ interface ProductStore {
 }
 
 export const useProductStore = create<ProductStore>()(
-  devtools(
-    (set, get) => ({
-      products: [],
-      filteredProducts: [],
-      isLoading: false,
-      error: null,
-      lastUpdated: null,
-      filters: {
-        category: "",
-        status: "",
-        searchTerm: "",
-      },
-      sortConfig: {
-        field: "name",
-        direction: "asc",
-      },
+  persist(
+    devtools(
+      (set, get) => ({
+        products: [],
+        filteredProducts: [],
+        isLoading: false,
+        error: null,
+        lastUpdated: null,
+        filters: {
+          category: "",
+          status: "",
+          searchTerm: "",
+        },
+        sortConfig: {
+          field: "name",
+          direction: "asc",
+        },
 
-      setProducts: (products) => {
-        set({
-          products,
-          lastUpdated: new Date(),
-        });
-        get().applyFiltersAndSort();
-      },
-
-      loadProducts: async () => {
-        set({ isLoading: true, error: null });
-        try {
-          await simulateApiDelay(800);
+        setProducts: (products) => {
           set({
-            products: initialProducts,
-            isLoading: false,
+            products,
             lastUpdated: new Date(),
           });
           get().applyFiltersAndSort();
-        } catch (error) {
+        },
+
+        loadProducts: async () => {
+          set({ isLoading: true, error: null });
+          try {
+            await simulateApiDelay(800);
+            const { products } = get();
+            
+            // Always load mock data first
+            const mockProducts = initialProducts;
+            
+            // Merge mock data with existing products, avoiding duplicates by ID
+            const existingIds = new Set(products.map(p => p.id));
+            const newProducts = mockProducts.filter(p => !existingIds.has(p.id));
+            const mergedProducts = [...products, ...newProducts];
+            
+            // Sort products by ID in descending order (newest first)
+            const sortedProducts = [...mergedProducts].sort((a, b) => b.id - a.id);
+            
+            set({
+              products: sortedProducts,
+              filteredProducts: sortedProducts,
+              isLoading: false,
+              lastUpdated: new Date(),
+            });
+            
+            console.log("Loaded mock products:", mockProducts.length);
+            console.log("Existing products:", products.length);
+            console.log("New products added:", newProducts.length);
+            console.log("Total products after merge:", sortedProducts.length);
+            
+          } catch (error) {
+            set({
+              error: "Failed to load products",
+              isLoading: false,
+            });
+          }
+        },
+
+        addProduct: async (productData) => {
+          set({ isLoading: true, error: null });
+          try {
+            await simulateApiDelay(500);
+
+            const { products } = get();
+            const newProduct: Product = {
+              ...productData,
+              id: Math.max(...products.map((p) => p.id), 0) + 1,
+            };
+
+            const updatedProducts = [...products, newProduct];
+            
+            set({
+              products: updatedProducts,
+              filteredProducts: updatedProducts,
+              isLoading: false,
+              lastUpdated: new Date(),
+            });
+            
+            console.log("Product added:", newProduct);
+            console.log("Total products:", updatedProducts.length);
+            
+          } catch (error) {
+            set({
+              error: "Failed to add product",
+              isLoading: false,
+            });
+            throw error;
+          }
+        },
+
+        updateFilters: (newFilters) => {
+          const { filters } = get();
+          const updatedFilters = { ...filters, ...newFilters };
+          set({ filters: updatedFilters });
+          get().applyFiltersAndSort();
+        },
+
+        updateSort: (sortConfig) => {
+          set({ sortConfig });
+          get().applyFiltersAndSort();
+        },
+
+        clearFilters: () => {
           set({
-            error: "Failed to load products",
-            isLoading: false,
+            filters: {
+              category: "",
+              status: "",
+              searchTerm: "",
+            },
           });
-        }
-      },
+          get().applyFiltersAndSort();
+        },
 
-      addProduct: async (productData) => {
-        set({ isLoading: true, error: null });
-        try {
-          await simulateApiDelay(500);
-
+        getProductById: (id) => {
           const { products } = get();
-          const newProduct: Product = {
-            ...productData,
-            id: Math.max(...products.map((p) => p.id), 0) + 1,
-          };
+          return products.find((product) => product.id === id);
+        },
 
-          const updatedProducts = [...products, newProduct];
+        getProductStats: () => {
+          const { products } = get();
+          return productHelpers.getProductStats(products);
+        },
+
+        getLowStockProducts: () => {
+          const { products } = get();
+          return products.filter(
+            (product) =>
+              product.stock <= 10 &&
+              product.stock > 0 &&
+              product.status === "active"
+          );
+        },
+
+        getTopProducts: (limit = 5) => {
+          const { products } = get();
+          return productHelpers
+            .sortProducts(products, "price", "desc")
+            .slice(0, limit);
+        },
+
+        applyFiltersAndSort: () => {
+          const { products, filters, sortConfig } = get();
           
-          set({
-            products: updatedProducts,
-            isLoading: false,
-            lastUpdated: new Date(),
+          console.log("Applying filters to", products.length, "products");
+          console.log("Current filters:", filters);
+
+          let filtered = productHelpers.filterProducts(products, {
+            searchTerm: filters.searchTerm,
+            category: filters.category,
+            status: filters.status,
           });
 
-          get().applyFiltersAndSort();
-          
-          console.log("Product added:", newProduct);
-          console.log("Total products:", updatedProducts.length);
-          
-        } catch (error) {
-          set({
-            error: "Failed to add product",
-            isLoading: false,
-          });
-          throw error;
-        }
-      },
+          console.log("After filtering:", filtered.length, "products");
 
-      updateFilters: (newFilters) => {
-        const { filters } = get();
-        const updatedFilters = { ...filters, ...newFilters };
-        set({ filters: updatedFilters });
-        get().applyFiltersAndSort();
-      },
+          const sorted = productHelpers.sortProducts(
+            filtered,
+            sortConfig.field,
+            sortConfig.direction
+          );
 
-      updateSort: (sortConfig) => {
-        set({ sortConfig });
-        get().applyFiltersAndSort();
-      },
+          console.log("After sorting:", sorted.length, "products");
 
-      clearFilters: () => {
-        set({
-          filters: {
-            category: "",
-            status: "",
-            searchTerm: "",
-          },
-        });
-        get().applyFiltersAndSort();
-      },
-
-      getProductById: (id) => {
-        const { products } = get();
-        return products.find((product) => product.id === id);
-      },
-
-      // Enhanced analytics methods
-      getProductStats: () => {
-        const { products } = get();
-        return productHelpers.getProductStats(products);
-      },
-
-      getLowStockProducts: () => {
-        const { products } = get();
-        return products.filter(
-          (product) =>
-            product.stock <= 10 &&
-            product.stock > 0 &&
-            product.status === "active"
-        );
-      },
-
-      getTopProducts: (limit = 5) => {
-        const { products } = get();
-        return productHelpers
-          .sortProducts(products, "price", "desc")
-          .slice(0, limit);
-      },
-
-      applyFiltersAndSort: () => {
-        const { products, filters, sortConfig } = get();
-        
-        console.log("Applying filters to", products.length, "products");
-        console.log("Current filters:", filters);
-
-        let filtered = productHelpers.filterProducts(products, {
-          searchTerm: filters.searchTerm,
-          category: filters.category,
-          status: filters.status,
-        });
-
-        console.log("After filtering:", filtered.length, "products");
-
-        const sorted = productHelpers.sortProducts(
-          filtered,
-          sortConfig.field,
-          sortConfig.direction
-        );
-
-        console.log("After sorting:", sorted.length, "products");
-
-        set({ filteredProducts: sorted });
-      },
-    }),
+          set({ filteredProducts: sorted });
+        },
+      }),
+      {
+        name: "product-store",
+      }
+    ),
     {
-      name: "product-store",
+      name: "product-storage",
+      partialize: (state) => ({
+        products: state.products,
+        lastUpdated: state.lastUpdated,
+      }),
     }
   )
 );
 
-export const useProducts = () =>
-  useProductStore((state) => state.filteredProducts);
-export const useProductsLoading = () =>
-  useProductStore((state) => state.isLoading);
+// Export selectors
+export const useProducts = () => useProductStore((state) => state.products);
+export const useFilteredProducts = () => useProductStore((state) => state.filteredProducts);
+export const useProductsLoading = () => useProductStore((state) => state.isLoading);
 export const useProductsError = () => useProductStore((state) => state.error);
-export const useProductFilters = () =>
-  useProductStore((state) => state.filters);
-export const useProductSort = () =>
-  useProductStore((state) => state.sortConfig);
+export const useProductFilters = () => useProductStore((state) => state.filters);
+export const useProductSort = () => useProductStore((state) => state.sortConfig);
