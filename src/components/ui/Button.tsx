@@ -1,5 +1,6 @@
 import { forwardRef, type ButtonHTMLAttributes } from 'react';
 import React from 'react';
+import { Icons, type IconName } from '@/components/icons';
 
 // variant system using const assertions
 const buttonVariants = {
@@ -24,8 +25,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   isLoading?: boolean;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
+  leftIcon?: IconName;
+  rightIcon?: IconName;
   children: React.ReactNode;
   asChild?: boolean;
 }
@@ -50,6 +51,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     
     const combinedClassName = `${baseStyles} ${variantStyles} ${sizeStyles} ${className}`.trim();
 
+    // Get icon components
+    const LeftIconComponent = leftIcon ? Icons[leftIcon] : null;
+    const RightIconComponent = rightIcon ? Icons[rightIcon] : null;
+
     if (asChild) {
       const child = children as React.ReactElement;
       return React.cloneElement(child, {
@@ -67,14 +72,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {isLoading ? (
-          <div className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full" />
+          <Icons.loading className="w-4 h-4 animate-spin" />
         ) : (
-          leftIcon
+          LeftIconComponent && <LeftIconComponent className="w-4 h-4" />
         )}
         
         {children}
         
-        {!isLoading && rightIcon}
+        {!isLoading && RightIconComponent && <RightIconComponent className="w-4 h-4" />}
       </button>
     );
   }
