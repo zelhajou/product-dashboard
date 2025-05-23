@@ -12,7 +12,7 @@ interface ProductFiltersProps {
 }
 
 export function ProductFilters({
-  filters,// src/components/product/ProductFilters.tsx - Fixed version
+  filters,
 
   onFiltersChange,
   onClearFilters,
@@ -37,10 +37,6 @@ export function ProductFilters({
 
   const handleOutOfStockFilter = () => {
     onFiltersChange({ stockLevel: "out" });
-  };
-
-  const handleAllStockFilter = () => {
-    onFiltersChange({ stockLevel: "" });
   };
 
   return (
