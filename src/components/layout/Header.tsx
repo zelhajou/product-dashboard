@@ -1,173 +1,87 @@
+// src/components/layout/Header.tsx - Updated for new layout
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Icons } from "@/components/icons";
 
-interface NavItem {
-  label: string;
-  href: string;
-  icon?: React.ReactNode;
+interface HeaderProps {
+  onMenuClick: () => void;
+  title?: string;
+  breadcrumbs?: Array<{ label: string; href?: string }>;
 }
 
-const navItems: NavItem[] = [
-  {
-    label: "Products",
-    href: "/products",
-    icon: (
-      <svg
-        className="w-4 h-4"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M20 7l-8-4-8 4m16 0l-8 4-8-4m16 0v10l-8 4-8-4V7"
-        />
-      </svg>
-    ),
-  },
-  {
-    label: "Add Product",
-    href: "/add-product",
-    icon: (
-      <svg
-        className="w-4 h-4"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-        />
-      </svg>
-    ),
-  },
-];
-
-export function Header() {
-  const location = useLocation();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const isActiveLink = (href: string) => {
-    if (href === "/products") {
-      return location.pathname === "/" || location.pathname === "/products";
-    }
-    return location.pathname === href;
-  };
+export function Header({ onMenuClick, title, breadcrumbs }: HeaderProps) {
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo/Brand */}
-          <div className="flex items-center gap-2">
-            <div className="p-2 bg-blue-600 rounded-lg">
-              <svg
-                className="w-6 h-6 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M20 7l-8-4-8 4m16 0l-8 4-8-4m16 0v10l-8 4-8-4V7"
-                />
-              </svg>
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-gray-900">ProductHub</h1>
-              <p className="text-xs text-gray-500 hidden sm:block">
-                Management Dashboard
-              </p>
-            </div>
-          </div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                className={`
-                  flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors
-                  ${
-                    isActiveLink(item.href)
-                      ? "bg-blue-100 text-blue-700"
-                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                  }
-                `}
-              >
-                {item.icon}
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
+    <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
+      <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16">
+        {/* Left section */}
+        <div className="flex items-center gap-4">
           {/* Mobile menu button */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-            aria-label="Toggle mobile menu"
+            onClick={onMenuClick}
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 text-gray-600 hover:text-gray-900"
+            aria-label="Open sidebar"
           >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              {isMobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
+            <Icons.menu className="w-5 h-5" />
           </button>
-        </div>
 
-        {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-100">
-            <nav className="flex flex-col gap-1">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`
-                    flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors
-                    ${
-                      isActiveLink(item.href)
-                        ? "bg-blue-100 text-blue-700"
-                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                    }
-                  `}
-                >
-                  {item.icon}
-                  {item.label}
-                </Link>
+          {/* Breadcrumbs */}
+          {breadcrumbs && (
+            <nav className="hidden sm:flex items-center space-x-2 text-sm">
+              {breadcrumbs.map((crumb, index) => (
+                <div key={index} className="flex items-center">
+                  {index > 0 && (
+                    <Icons.chevronRight className="w-4 h-4 mx-2 text-gray-400" />
+                  )}
+                  {crumb.href ? (
+                    <a
+                      href={crumb.href}
+                      className="text-gray-600 hover:text-gray-900 font-medium"
+                    >
+                      {crumb.label}
+                    </a>
+                  ) : (
+                    <span className="text-gray-900 font-semibold">
+                      {crumb.label}
+                    </span>
+                  )}
+                </div>
               ))}
             </nav>
+          )}
+
+          {/* Page title */}
+          {title && (
+            <h1 className="text-xl font-semibold text-gray-900 sm:hidden">
+              {title}
+            </h1>
+          )}
+        </div>
+
+        {/* Right section */}
+        <div className="flex items-center gap-3">
+          {/* Notifications */}
+          <button className="relative p-2 rounded-lg hover:bg-gray-100 text-gray-600 hover:text-gray-900">
+            <Icons.activity className="w-5 h-5" />
+            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+          </button>
+
+          {/* Settings */}
+          <button className="p-2 rounded-lg hover:bg-gray-100 text-gray-600 hover:text-gray-900">
+            <Icons.settings className="w-5 h-5" />
+          </button>
+
+          {/* User menu */}
+          <div className="relative">
+            <button className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                <Icons.user className="w-4 h-4 text-white" />
+              </div>
+              <Icons.chevronDown className="w-4 h-4 text-gray-400 hidden sm:block" />
+            </button>
           </div>
-        )}
+        </div>
       </div>
     </header>
   );
 }
-
-export default Header;
