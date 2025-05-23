@@ -10,7 +10,6 @@ export {
   TableHeaderCell,
   TableCell,
 } from "./Table";
-export { LoadingScreen } from './LoadingScreen';
 export { ResponsiveGrid } from './ResponsiveGrid';
 export { Pagination } from './Pagination';
 

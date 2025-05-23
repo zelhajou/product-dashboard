@@ -152,7 +152,6 @@ src/
 - **Input**: Form input with validation states
 - **Select**: Dropdown select component
 - **Table**: Accessible table components
-- **LoadingScreen**: Full-screen loading state
 
 ### Common Components
 - **StatsCard**: Dashboard statistics cards
