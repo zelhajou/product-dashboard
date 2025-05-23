@@ -94,30 +94,6 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           </button>
         </div>
 
-        {/* Quick Stats - Fixed height */}
-        <div className="px-6 py-4 border-b border-gray-100 flex-shrink-0">
-          <div className="grid grid-cols-2 gap-3">
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-3">
-              <div className="flex items-center gap-2 mb-1">
-                <Icons.product className="w-4 h-4 text-blue-600" />
-                <span className="text-xs font-medium text-blue-800">
-                  Products
-                </span>
-              </div>
-              <div className="text-lg font-bold text-blue-900">128</div>
-            </div>
-            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-3">
-              <div className="flex items-center gap-2 mb-1">
-                <Icons.dollar className="w-4 h-4 text-green-600" />
-                <span className="text-xs font-medium text-green-800">
-                  Value
-                </span>
-              </div>
-              <div className="text-lg font-bold text-green-900">$24K</div>
-            </div>
-          </div>
-        </div>
-
         {/* Navigation */}
         <nav className="flex-1 px-3 py-4 overflow-y-auto pb-20">
           <div className="space-y-6">
