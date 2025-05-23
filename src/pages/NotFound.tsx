@@ -7,7 +7,6 @@ import { Icons } from "@/components/icons";
 export function NotFound() {
   return (
     <Layout
-      title="Page Not Found"
       breadcrumbs={[{ label: "404 Error" }]}
     >
       <div className="min-h-[60vh] flex items-center justify-center">
