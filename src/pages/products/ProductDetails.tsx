@@ -2,33 +2,24 @@ import { Link } from "react-router-dom";
 import { useProductDetails } from "@/hooks";
 import { Button } from "@/components/ui";
 import { Layout } from "@/components/layout";
-import { 
-  LoadingSpinner, 
-  EmptyState, 
-  InfoCard, 
-  AlertCard 
-} from "@/components/common";
+import { LoadingSpinner, EmptyState } from "@/components/common";
 import { Icons } from "@/components/icons";
 
 export function ProductDetails() {
-  const {
-    product,
-    isLoading,
-    handleGoBack,
-    handleEdit,
-    handleNavigateToProducts,
-  } = useProductDetails();
+  const { product, isLoading, handleGoBack, handleNavigateToProducts } =
+    useProductDetails();
 
   if (isLoading) {
     return (
       <Layout
-        title="Product Details"
         breadcrumbs={[
           { label: "Products", href: "/products" },
-          { label: "Loading..." }
+          { label: "Loading..." },
         ]}
       >
-        <LoadingSpinner size="lg" message="Loading product details..." />
+        <div className="flex items-center justify-center py-20">
+          <LoadingSpinner size="lg" />
+        </div>
       </Layout>
     );
   }
@@ -36,224 +27,293 @@ export function ProductDetails() {
   if (!product) {
     return (
       <Layout
-        title="Product Not Found"
         breadcrumbs={[
           { label: "Products", href: "/products" },
-          { label: "Not Found" }
+          { label: "Not Found" },
         ]}
       >
-        <EmptyState
-          icon={<Icons.product className="w-full h-full" />}
-          title="Product Not Found"
-          description="The product you're looking for doesn't exist or may have been removed."
-          primaryAction={{
-            label: "View All Products",
-            onClick: handleNavigateToProducts,
-            icon: "product"
-          }}
-          secondaryAction={{
-            label: "Go Back",
-            onClick: handleGoBack,
-            icon: "back"
-          }}
-          size="lg"
-        />
+        <div className="flex items-center justify-center py-20">
+          <EmptyState
+            icon={<Icons.product className="w-full h-full" />}
+            title="Product Not Found"
+            description="The product you're looking for doesn't exist or may have been removed."
+            primaryAction={{
+              label: "View All Products",
+              onClick: handleNavigateToProducts,
+            }}
+            secondaryAction={{
+              label: "Go Back",
+              onClick: handleGoBack,
+            }}
+          />
+        </div>
       </Layout>
     );
   }
 
+  const getStockStatus = () => {
+    if (product.stock === 0)
+      return {
+        label: "Out of Stock",
+        color: "bg-red-100 text-red-800",
+        dot: "bg-red-500",
+      };
+    if (product.stock <= 10)
+      return {
+        label: "Low Stock",
+        color: "bg-yellow-100 text-yellow-800",
+        dot: "bg-yellow-500",
+      };
+    return {
+      label: "In Stock",
+      color: "bg-green-100 text-green-800",
+      dot: "bg-green-500",
+    };
+  };
+
+  const stockStatus = getStockStatus();
+
   return (
     <Layout
-      title={product.name}
-      description={`Product details for ${product.name} in ${product.category}`}
       breadcrumbs={[
         { label: "Products", href: "/products" },
-        { label: product.name }
+        { label: product.name },
       ]}
     >
-      {/* Action Bar */}
-      <div className="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div className="flex items-center gap-4">
-          <span className="text-lg text-gray-600">{product.category}</span>
-          <span
-            className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-              product.status === "active"
-                ? "bg-green-100 text-green-800"
-                : "bg-gray-100 text-gray-800"
-            }`}
-          >
-            {product.status}
-          </span>
-        </div>
+      <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
+        {/* Main Content */}
+        <div className="xl:col-span-3">
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            {/* Product Header */}
+            <div className="border-b border-gray-200 px-6 py-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                    <Icons.product className="w-6 h-6 text-gray-400" />
+                  </div>
+                  <div>
+                    <h1 className="text-xl font-semibold text-gray-900">
+                      {product.name}
+                    </h1>
+                    <div className="flex items-center gap-3 mt-1">
+                      <span className="text-sm text-gray-500">
+                        #{product.id}
+                      </span>
+                      <span className="text-sm text-gray-400">•</span>
+                      <span className="text-sm text-gray-500">
+                        {product.category}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button variant="outline" size="sm" onClick={handleGoBack}>
+                    <Icons.back className="w-4 h-4" />
+                  </Button>
+                  <Button variant="secondary" size="sm">
+                    <Icons.edit className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+            </div>
 
-        <div className="flex gap-3">
-          <Button
-            variant="outline"
-            onClick={handleGoBack}
-            leftIcon="back"
-          >
-            Back
-          </Button>
-          <Button variant="secondary" leftIcon="edit" onClick={handleEdit}>
-            Edit Product
-          </Button>
-        </div>
-      </div>
+            {/* Product Image */}
+            <div className="p-6 border-b border-gray-100">
+              <div className="aspect-video bg-gray-50 rounded-lg flex items-center justify-center">
+                <div className="text-center">
+                  <Icons.image className="w-16 h-16 text-gray-300 mx-auto mb-3" />
+                  <p className="text-sm text-gray-500">No image available</p>
+                </div>
+              </div>
+            </div>
 
-      {/* Alerts */}
-      {product.stock <= 10 && product.stock > 0 && (
-        <div className="mb-6">
-          <AlertCard
-            type="warning"
-            title="Low Stock Alert"
-            description={`This product has only ${product.stock} units left in stock`}
-            action={
-              <Button size="sm" asChild leftIcon="add">
-                <Link to="/add-product">Restock Product</Link>
-              </Button>
-            }
-          />
-        </div>
-      )}
+            {/* Product Information */}
+            <div className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-sm font-medium text-gray-900 mb-4">
+                    Product Details
+                  </h3>
+                  <dl className="space-y-3">
+                    <div className="flex justify-between">
+                      <dt className="text-sm text-gray-500">Product ID</dt>
+                      <dd className="text-sm font-medium text-gray-900">
+                        #{product.id}
+                      </dd>
+                    </div>
+                    <div className="flex justify-between">
+                      <dt className="text-sm text-gray-500">Category</dt>
+                      <dd className="text-sm font-medium text-gray-900">
+                        {product.category}
+                      </dd>
+                    </div>
+                    <div className="flex justify-between">
+                      <dt className="text-sm text-gray-500">Status</dt>
+                      <dd>
+                        <span
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                            product.status === "active"
+                              ? "bg-green-100 text-green-800"
+                              : "bg-gray-100 text-gray-800"
+                          }`}
+                        >
+                          <span
+                            className={`w-1.5 h-1.5 rounded-full mr-1.5 ${
+                              product.status === "active"
+                                ? "bg-green-400"
+                                : "bg-gray-400"
+                            }`}
+                          ></span>
+                          {product.status}
+                        </span>
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
 
-      {product.stock === 0 && (
-        <div className="mb-6">
-          <AlertCard
-            type="error"
-            title="Out of Stock"
-            description="This product is currently out of stock and unavailable for sale"
-            action={
-              <Button size="sm" asChild leftIcon="add">
-                <Link to="/add-product">Restock Now</Link>
-              </Button>
-            }
-          />
-        </div>
-      )}
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Product Image Placeholder */}
-        <div className="lg:col-span-2">
-          <div className="bg-gray-100 rounded-lg aspect-video flex items-center justify-center">
-            <div className="text-center">
-              <Icons.image className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-500">Product Image</p>
-              <Button variant="outline" size="sm" className="mt-3" leftIcon="upload">
-                Upload Image
-              </Button>
+                <div>
+                  <h3 className="text-sm font-medium text-gray-900 mb-4">
+                    Inventory & Pricing
+                  </h3>
+                  <dl className="space-y-3">
+                    <div className="flex justify-between">
+                      <dt className="text-sm text-gray-500">Unit Price</dt>
+                      <dd className="text-sm font-medium text-gray-900 font-mono">
+                        ${product.price.toFixed(2)}
+                      </dd>
+                    </div>
+                    <div className="flex justify-between">
+                      <dt className="text-sm text-gray-500">Stock Quantity</dt>
+                      <dd className="text-sm font-medium text-gray-900 font-mono">
+                        {product.stock} units
+                      </dd>
+                    </div>
+                    <div className="flex justify-between">
+                      <dt className="text-sm text-gray-500">Total Value</dt>
+                      <dd className="text-sm font-medium text-gray-900 font-mono">
+                        ${(product.price * product.stock).toFixed(2)}
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Product Info Sidebar */}
-        <div className="space-y-6">
-          {/* Price Card */}
-          <InfoCard
-            title="Pricing"
-            icon={<Icons.dollar className="w-5 h-5 text-green-600" />}
-            variant="elevated"
-          >
-            <div className="text-center">
-              <div className="text-3xl font-bold text-gray-900 mb-2">
-                ${product.price.toFixed(2)}
-              </div>
-              <p className="text-gray-600">Current Price</p>
-            </div>
-          </InfoCard>
-
-          {/* Stock Card */}
-          <InfoCard
-            title="Stock Level"
-            icon={<Icons.product className="w-5 h-5 text-blue-600" />}
-            variant="elevated"
-            headerAction={
-              <span
-                className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                  product.stock > 20
-                    ? "bg-green-100 text-green-800"
-                    : product.stock > 0
-                    ? "bg-yellow-100 text-yellow-800"
-                    : "bg-red-100 text-red-800"
-                }`}
-              >
-                {product.stock > 20
-                  ? "In Stock"
-                  : product.stock > 0
-                  ? "Low Stock"
-                  : "Out of Stock"}
-              </span>
-            }
-          >
-            <div className="text-2xl font-bold text-gray-900 mb-4">
-              {product.stock} units
-            </div>
-
-            {/* Stock level indicator */}
-            <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
-              <div
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  product.stock > 20
-                    ? "bg-green-500"
-                    : product.stock > 0
-                    ? "bg-yellow-500"
-                    : "bg-red-500"
-                }`}
-                style={{
-                  width: `${Math.min((product.stock / 50) * 100, 100)}%`,
-                }}
-              ></div>
-            </div>
-            <p className="text-sm text-gray-500">
-              Stock level: {Math.min((product.stock / 50) * 100, 100).toFixed(0)}%
-            </p>
-          </InfoCard>
-
-          {/* Product Details */}
-          <InfoCard
-            title="Product Details"
-            icon={<Icons.info className="w-5 h-5 text-gray-600" />}
-          >
-            <dl className="space-y-3">
-              <div className="flex justify-between">
-                <dt className="text-sm font-medium text-gray-500">Product ID</dt>
-                <dd className="text-sm text-gray-900">#{product.id}</dd>
-              </div>
-              <div className="flex justify-between">
-                <dt className="text-sm font-medium text-gray-500">Category</dt>
-                <dd className="text-sm text-gray-900">{product.category}</dd>
-              </div>
-              <div className="flex justify-between">
-                <dt className="text-sm font-medium text-gray-500">Status</dt>
-                <dd className="text-sm text-gray-900 capitalize">
-                  {product.status}
-                </dd>
-              </div>
-              <div className="flex justify-between">
-                <dt className="text-sm font-medium text-gray-500">
-                  Stock Units
-                </dt>
-                <dd className="text-sm text-gray-900">{product.stock}</dd>
-              </div>
-            </dl>
-          </InfoCard>
-
-          {/* Actions */}
-          <InfoCard
-            title="Quick Actions"
-            icon={<Icons.settings className="w-5 h-5 text-gray-600" />}
-          >
+        {/* Sidebar */}
+        <div className="xl:col-span-1 space-y-6">
+          {/* Stock Status Card */}
+          <div className="bg-white border border-gray-200 rounded-lg p-4">
+            <h3 className="text-sm font-medium text-gray-900 mb-3">
+              Stock Status
+            </h3>
             <div className="space-y-3">
-              <Button className="w-full" variant="outline" leftIcon="edit" onClick={handleEdit}>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-500">Current Stock</span>
+                <span className="text-lg font-semibold text-gray-900 font-mono">
+                  {product.stock}
+                </span>
+              </div>
+              <div>
+                <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
+                  <span>Stock Level</span>
+                  <span
+                    className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${stockStatus.color}`}
+                  >
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full mr-1 ${stockStatus.dot}`}
+                    ></span>
+                    {stockStatus.label}
+                  </span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      product.stock === 0
+                        ? "bg-red-500"
+                        : product.stock <= 10
+                        ? "bg-yellow-500"
+                        : "bg-green-500"
+                    }`}
+                    style={{
+                      width: `${Math.min((product.stock / 50) * 100, 100)}%`,
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="bg-white border border-gray-200 rounded-lg p-4">
+            <h3 className="text-sm font-medium text-gray-900 mb-3">
+              Quick Actions
+            </h3>
+            <div className="space-y-2">
+              <Button
+                className="w-full justify-start"
+                variant="outline"
+                size="sm"
+              >
+                <Icons.edit className="w-4 h-4 mr-2" />
                 Edit Product
               </Button>
-              <Button className="w-full" variant="secondary" leftIcon="copy">
-                Duplicate Product
+              <Button
+                className="w-full justify-start"
+                variant="outline"
+                size="sm"
+              >
+                <Icons.copy className="w-4 h-4 mr-2" />
+                Duplicate
               </Button>
-              <Button className="w-full" variant="outline" leftIcon="download">
-                Export Details
+              <Button
+                className="w-full justify-start"
+                variant="outline"
+                size="sm"
+                asChild
+              >
+                <Link to="/products">
+                  <Icons.product className="w-4 h-4 mr-2" />
+                  View All Products
+                </Link>
               </Button>
             </div>
-          </InfoCard>
+          </div>
+
+          {/* Alerts */}
+          {product.stock <= 10 && product.stock > 0 && (
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+              <div className="flex items-start">
+                <Icons.warning className="w-5 h-5 text-yellow-600 mt-0.5 mr-3 flex-shrink-0" />
+                <div>
+                  <h4 className="text-sm font-medium text-yellow-800">
+                    Low Stock Alert
+                  </h4>
+                  <p className="text-sm text-yellow-700 mt-1">
+                    Only {product.stock} units remaining. Consider restocking
+                    soon.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {product.stock === 0 && (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+              <div className="flex items-start">
+                <Icons.failed className="w-5 h-5 text-red-600 mt-0.5 mr-3 flex-shrink-0" />
+                <div>
+                  <h4 className="text-sm font-medium text-red-800">
+                    Out of Stock
+                  </h4>
+                  <p className="text-sm text-red-700 mt-1">
+                    This product is currently unavailable for sale.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </Layout>
