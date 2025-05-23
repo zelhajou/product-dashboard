@@ -75,8 +75,15 @@ export const productHelpers = {
     if (stock <= 5) {
       return {
         status: "low",
-        label: "Low Stock",
+        label: "Critical Stock",
         color: "bg-red-100 text-red-800",
+      };
+    }
+    if (stock <= 10) {
+      return {
+        status: "low",
+        label: "Low Stock",
+        color: "bg-yellow-100 text-yellow-800",
       };
     }
     if (stock <= 20) {
@@ -93,13 +100,13 @@ export const productHelpers = {
     };
   },
 
-  // Filter products by multiple criteria
   filterProducts: (
     products: Product[],
     filters: {
       searchTerm?: string;
       category?: string;
       status?: string;
+      stockLevel?: string;
       minPrice?: number;
       maxPrice?: number;
     }
@@ -123,6 +130,29 @@ export const productHelpers = {
       // Status filtering
       if (filters.status && filters.status !== "") {
         if (product.status !== filters.status) return false;
+      }
+
+      // Stock level filtering
+      if (filters.stockLevel && filters.stockLevel !== "") {
+        switch (filters.stockLevel) {
+          case "out":
+            if (product.stock !== 0) return false;
+            break;
+          case "low":
+            // Low stock: 1-10 units
+            if (product.stock <= 0 || product.stock > 10) return false;
+            break;
+          case "medium":
+            // Medium stock: 11-20 units
+            if (product.stock <= 10 || product.stock > 20) return false;
+            break;
+          case "high":
+            // High stock: more than 20 units
+            if (product.stock <= 20) return false;
+            break;
+          default:
+            break;
+        }
       }
 
       // Price range filtering

@@ -12,6 +12,7 @@ export interface ProductFilters {
   category: string;
   status: string;
   searchTerm: string;
+  stockLevel?: string; // Added stockLevel filter
 }
 
 // Sort configuration interface
@@ -37,4 +38,3 @@ export interface ProductState {
   filters: ProductFilters;
   sortConfig: SortConfig;
 }
-

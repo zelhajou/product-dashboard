@@ -45,6 +45,7 @@ export const useProductStore = create<ProductStore>()(
           category: "",
           status: "",
           searchTerm: "",
+          stockLevel: "", // Added stockLevel to initial filters
         },
         sortConfig: {
           field: "name",
@@ -146,6 +147,7 @@ export const useProductStore = create<ProductStore>()(
               category: "",
               status: "",
               searchTerm: "",
+              stockLevel: "", // Clear stockLevel filter too
             },
           });
           get().applyFiltersAndSort();
@@ -184,10 +186,47 @@ export const useProductStore = create<ProductStore>()(
           console.log("Applying filters to", products.length, "products");
           console.log("Current filters:", filters);
 
-          let filtered = productHelpers.filterProducts(products, {
-            searchTerm: filters.searchTerm,
-            category: filters.category,
-            status: filters.status,
+          // Enhanced filtering with stock level support
+          let filtered = products.filter((product) => {
+            // Search term matching
+            if (filters.searchTerm) {
+              const searchLower = filters.searchTerm.toLowerCase();
+              const matchesName = product.name.toLowerCase().includes(searchLower);
+              const matchesCategory = product.category.toLowerCase().includes(searchLower);
+              if (!matchesName && !matchesCategory) return false;
+            }
+
+            // Category filtering
+            if (filters.category && filters.category !== "") {
+              if (product.category !== filters.category) return false;
+            }
+
+            // Status filtering
+            if (filters.status && filters.status !== "") {
+              if (product.status !== filters.status) return false;
+            }
+
+            // Stock level filtering
+            if (filters.stockLevel && filters.stockLevel !== "") {
+              switch (filters.stockLevel) {
+                case "low":
+                  // Low stock: 1-10 units
+                  if (product.stock <= 0 || product.stock > 10) return false;
+                  break;
+                case "out":
+                  // Out of stock: 0 units
+                  if (product.stock !== 0) return false;
+                  break;
+                case "high":
+                  // High stock: more than 20 units
+                  if (product.stock <= 20) return false;
+                  break;
+                default:
+                  break;
+              }
+            }
+
+            return true;
           });
 
           console.log("After filtering:", filtered.length, "products");

@@ -3,7 +3,12 @@ import { useProductList } from "@/hooks";
 import { Button, Pagination } from "@/components/ui";
 import { ProductFilters, ProductTable } from "@/components/product";
 import { Layout } from "@/components/layout";
-import { StatsCard, AlertCard, LoadingSpinner, EmptyState } from "@/components/common";
+import {
+  StatsCard,
+  AlertCard,
+  LoadingSpinner,
+  EmptyState,
+} from "@/components/common";
 import { Icons } from "@/components/icons";
 import { useState, useEffect } from "react";
 
@@ -41,9 +46,22 @@ export function ProductList() {
     setCurrentPage(page);
   };
 
+  // Enhanced handlers for stock level filtering
+  const handleLowStockClick = () => {
+    handleFiltersChange({ stockLevel: "low" });
+  };
+
+  const handleOutOfStockClick = () => {
+    handleFiltersChange({ stockLevel: "out" });
+  };
+
+  const handleAllProductsClick = () => {
+    clearFilters();
+  };
+
   if (isLoading) {
     return (
-      <Layout 
+      <Layout
         breadcrumbs={[{ label: "Products" }]}
       >
         <LoadingSpinner size="lg" message="Loading products..." />
@@ -53,7 +71,7 @@ export function ProductList() {
 
   if (error) {
     return (
-      <Layout 
+      <Layout
         breadcrumbs={[{ label: "Products" }]}
       >
         <AlertCard
@@ -87,7 +105,7 @@ export function ProductList() {
           title="Total Products"
           value={stats.total}
           subtitle="All products in inventory"
-          onClick={() => handleFiltersChange({})}
+          onClick={handleAllProductsClick}
         />
 
         <StatsCard
@@ -99,7 +117,7 @@ export function ProductList() {
           trend={{
             value: 12.5,
             isPositive: true,
-            label: "vs last month"
+            label: "vs last month",
           }}
         />
 
@@ -109,7 +127,7 @@ export function ProductList() {
           title="Low Stock"
           value={stats.lowStock}
           subtitle="Products need restocking"
-          onClick={() => handleFiltersChange({ searchTerm: "low stock" })}
+          onClick={handleLowStockClick}
           className={stats.lowStock > 0 ? "ring-2 ring-yellow-200" : ""}
         />
 
@@ -119,7 +137,7 @@ export function ProductList() {
           title="Out of Stock"
           value={stats.outOfStock}
           subtitle="Products unavailable"
-          onClick={() => handleFiltersChange({ searchTerm: "out of stock" })}
+          onClick={handleOutOfStockClick}
           className={stats.outOfStock > 0 ? "ring-2 ring-red-200" : ""}
         />
       </div>
@@ -160,13 +178,13 @@ export function ProductList() {
           description="No products match your current filters. Try adjusting your search criteria or add your first product."
           primaryAction={{
             label: "Add Your First Product",
-            onClick: () => window.location.href = "/add-product",
-            icon: "add"
+            onClick: () => (window.location.href = "/add-product"),
+            icon: "add",
           }}
           secondaryAction={{
             label: "Clear Filters",
             onClick: clearFilters,
-            icon: "close"
+            icon: "close",
           }}
         />
       ) : (

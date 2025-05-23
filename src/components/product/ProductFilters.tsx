@@ -12,7 +12,8 @@ interface ProductFiltersProps {
 }
 
 export function ProductFilters({
-  filters,
+  filters,// src/components/product/ProductFilters.tsx - Fixed version
+
   onFiltersChange,
   onClearFilters,
   availableCategories = [],
@@ -26,8 +27,21 @@ export function ProductFilters({
   };
 
   const hasActiveFilters = Boolean(
-    filters.searchTerm || filters.category || filters.status
+    filters.searchTerm || filters.category || filters.status || filters.stockLevel
   );
+
+  // Quick filter handlers for stock levels
+  const handleLowStockFilter = () => {
+    onFiltersChange({ stockLevel: "low" });
+  };
+
+  const handleOutOfStockFilter = () => {
+    onFiltersChange({ stockLevel: "out" });
+  };
+
+  const handleAllStockFilter = () => {
+    onFiltersChange({ stockLevel: "" });
+  };
 
   return (
     <div
@@ -43,7 +57,7 @@ export function ProductFilters({
           {hasActiveFilters && (
             <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-blue-100 text-blue-800 animate-fade-in">
               {
-                [filters.searchTerm, filters.category, filters.status].filter(Boolean).length
+                [filters.searchTerm, filters.category, filters.status, filters.stockLevel].filter(Boolean).length
               } active
             </span>
           )}
@@ -149,10 +163,19 @@ export function ProductFilters({
             variant="outline"
             size="sm"
             leftIcon="warning"
-            onClick={() => onFiltersChange({ searchTerm: "low stock" })}
-            className="rounded-full px-3 py-1 transition-colors focus:ring-2 focus:ring-yellow-400 text-xs h-7 text-yellow-700 border-yellow-200 hover:bg-yellow-50"
+            onClick={handleLowStockFilter}
+            className={`rounded-full px-3 py-1 transition-colors focus:ring-2 focus:ring-yellow-400 text-xs h-7 ${filters.stockLevel === "low" ? "bg-yellow-50 border-yellow-200 text-yellow-700" : "text-yellow-700 border-yellow-200 hover:bg-yellow-50"}`}
           >
             Low Stock
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            leftIcon="failed"
+            onClick={handleOutOfStockFilter}
+            className={`rounded-full px-3 py-1 transition-colors focus:ring-2 focus:ring-red-400 text-xs h-7 ${filters.stockLevel === "out" ? "bg-red-50 border-red-200 text-red-700" : "text-red-700 border-red-200 hover:bg-red-50"}`}
+          >
+            Out of Stock
           </Button>
         </div>
       </div>
@@ -195,6 +218,18 @@ export function ProductFilters({
                 <button
                   onClick={() => onFiltersChange({ status: "" })}
                   className="hover:bg-green-200 rounded-full p-0.5 transition-colors focus:ring-2 focus:ring-green-400"
+                >
+                  <Icons.close className="w-3 h-3" />
+                </button>
+              </span>
+            )}
+            {filters.stockLevel && (
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] bg-orange-100 text-orange-800 animate-fade-in">
+                <Icons.warning className="w-3 h-3" />
+                {filters.stockLevel === "low" ? "Low Stock" : filters.stockLevel === "out" ? "Out of Stock" : filters.stockLevel}
+                <button
+                  onClick={() => onFiltersChange({ stockLevel: "" })}
+                  className="hover:bg-orange-200 rounded-full p-0.5 transition-colors focus:ring-2 focus:ring-orange-400"
                 >
                   <Icons.close className="w-3 h-3" />
                 </button>
