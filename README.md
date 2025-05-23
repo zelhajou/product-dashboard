@@ -7,6 +7,12 @@ A modern, responsive product management dashboard built with React, TypeScript, 
 ![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-4.1.7-blue)
 ![Vite](https://img.shields.io/badge/Vite-6.3.5-purple)
 
+## 🚀 Live Preview
+
+**[View Live Demo](https://product-dashboard-h43f.vercel.app/)**
+
+Experience the full functionality of the Product Management Dashboard with the live preview deployed on Vercel.
+
 ## 🌟 Features
 
 ### Core Functionality
