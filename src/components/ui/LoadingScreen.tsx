@@ -17,7 +17,7 @@ export function LoadingScreen({ message = "Loading..." }: LoadingScreenProps) {
         <div className="space-y-4">
           <div className="flex items-center justify-center gap-3">
             <Icons.loading className="w-6 h-6 text-blue-600 animate-spin" />
-            <h2 className="text-xl font-semibold text-gray-900">ProductHub</h2>
+            <h2 className="text-xl font-semibold text-gray-900">ProductSync</h2>
           </div>
           <p className="text-gray-600">{message}</p>
         </div>

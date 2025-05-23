@@ -1,5 +1,5 @@
 export const APP_CONFIG = {
-  APP_NAME: "ProductHub",
+  APP_NAME: "ProductSync",
   VERSION: "1.0.0",
   DESCRIPTION: "Product Management Dashboard",
 } as const;
