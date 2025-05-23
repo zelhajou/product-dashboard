@@ -8,8 +8,6 @@ export function AddProduct() {
 
   return (
     <Layout
-      title="Add New Product"
-      description="Fill in the details below to add a new product to your inventory"
       breadcrumbs={[
         { label: "Products", href: "/products" },
         { label: "Add Product" }
