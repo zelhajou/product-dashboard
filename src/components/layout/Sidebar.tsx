@@ -1,3 +1,7 @@
+"use client";
+
+import type React from "react";
+
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Icons } from "@/components/icons";
@@ -32,7 +36,7 @@ const navigationGroups: NavGroup[] = [
         description: "Create new product",
       },
     ],
-  }
+  },
 ];
 
 interface SidebarProps {
@@ -66,9 +70,9 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         className={`
           fixed top-0 left-0 h-screen bg-white border-r border-gray-200 z-50 transform transition-transform duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
-          lg:translate-x-0 lg:static lg:block lg:sticky lg:top-0
+          lg:translate-x-0
           w-64 xl:w-72 2xl:w-80
-          flex flex-col relative
+          flex flex-col
         `}
       >
         {/* Brand Header - Fixed height */}
@@ -210,6 +214,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           </div>
         </div>
       </div>
+      {/* Desktop sidebar spacer - only visible on large screens when sidebar is shown */}
+      <div className="hidden lg:block flex-shrink-0 w-64 xl:w-72 2xl:w-80"></div>
     </>
   );
 }

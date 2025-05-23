@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, type ReactNode } from "react";
 import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
@@ -36,7 +38,7 @@ export function Layout({
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       {/* Main content area */}
-      <div className="flex-1 flex flex-col min-w-0 lg:ml-0">
+      <div className="flex-1 flex flex-col min-w-0 w-full">
         {/* Header */}
         <Header
           onMenuClick={() => setSidebarOpen(true)}
@@ -45,7 +47,7 @@ export function Layout({
         />
 
         {/* Main content */}
-        <main className="flex-1 overflow-hidden">
+        <main className="flex-1 overflow-auto">
           <div className={`h-full ${maxWidthVariants[maxWidth]} mx-auto`}>
             <div className={`px-4 sm:px-6 lg:px-8 py-6 ${className}`}>
               {/* Page header */}
