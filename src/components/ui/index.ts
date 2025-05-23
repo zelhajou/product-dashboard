@@ -1,7 +1,7 @@
 // src/components/ui/index.ts - Updated exports
-export { Button } from "./Button";
+export { Button } from './Button';
 export { Input } from "./Input";
-export { Select } from "./Select";
+export { Select } from './Select';
 export {
   Table,
   TableHeader,
@@ -10,8 +10,9 @@ export {
   TableHeaderCell,
   TableCell,
 } from "./Table";
-export { LoadingScreen } from "./LoadingScreen";
-export { ResponsiveGrid } from "./ResponsiveGrid";
+export { LoadingScreen } from './LoadingScreen';
+export { ResponsiveGrid } from './ResponsiveGrid';
+export { Pagination } from './Pagination';
 
 export type { ButtonProps } from "./Button";
 export type { InputProps } from "./Input";
