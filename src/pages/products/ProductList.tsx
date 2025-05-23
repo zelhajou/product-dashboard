@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
 import { useProductList } from "@/hooks";
-import { Button } from "@/components/ui";
+import { Button, Pagination } from "@/components/ui";
 import { ProductFilters, ProductTable } from "@/components/product";
 import { Layout } from "@/components/layout";
 import { StatsCard, AlertCard, LoadingSpinner, EmptyState } from "@/components/common";
 import { Icons } from "@/components/icons";
+import { useState, useEffect } from "react";
 
 export function ProductList() {
   const {
     products,
+    allProducts,
     isLoading,
     error,
     filters,
@@ -21,6 +23,23 @@ export function ProductList() {
     handleProductClick,
     loadProducts,
   } = useProductList();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters, sortConfig]);
+
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+  const paginatedProducts = products.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   if (isLoading) {
     return (
@@ -118,9 +137,9 @@ export function ProductList() {
           <span className="text-sm font-medium text-gray-600">
             {products.length} products filtered
           </span>
-          {products.length !== stats.total && (
+          {products.length !== allProducts.length && (
             <span className="text-xs text-gray-500">
-              (of {stats.total} total)
+              (of {allProducts.length} total)
             </span>
           )}
         </div>
@@ -157,13 +176,23 @@ export function ProductList() {
           }}
         />
       ) : (
-        <ProductTable
-          products={products}
-          sortConfig={sortConfig}
-          onSort={handleSort}
-          onProductClick={handleProductClick}
-          isLoading={isLoading}
-        />
+        <>
+          <ProductTable
+            products={paginatedProducts}
+            sortConfig={sortConfig}
+            onSort={handleSort}
+            onProductClick={handleProductClick}
+            isLoading={isLoading}
+          />
+          {totalPages > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+              className="mt-4"
+            />
+          )}
+        </>
       )}
     </Layout>
   );

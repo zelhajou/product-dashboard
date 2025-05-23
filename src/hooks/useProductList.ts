@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
   useProductStore,
   useProducts,
+  useFilteredProducts,
   useProductsLoading,
   useProductsError,
   useProductFilters,
@@ -24,12 +25,12 @@ export function useProductList() {
   const getLowStockProducts = useProductStore((state) => state.getLowStockProducts);
 
   // Store selectors
-  const products = useProducts();
+  const allProducts = useProducts();
+  const filteredProducts = useFilteredProducts();
   const isLoading = useProductsLoading();
   const error = useProductsError();
   const filters = useProductFilters();
   const sortConfig = useProductSort();
-  const allProducts = useProductStore((state) => state.products);
 
   // Derived data
   const availableCategories = getUniqueCategories(allProducts);
@@ -60,7 +61,8 @@ export function useProductList() {
 
   return {
     // Data
-    products,
+    products: filteredProducts,
+    allProducts,
     isLoading,
     error,
     filters,
