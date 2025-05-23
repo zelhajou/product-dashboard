@@ -56,7 +56,6 @@ export function ProductForm({
     handleSubmit,
     formState: { errors, isValid, isDirty },
     reset,
-    watch,
   } = useForm<ProductFormData>({
     resolver: zodResolver(productSchema),
     defaultValues: {
@@ -68,8 +67,6 @@ export function ProductForm({
     },
     mode: "onChange",
   });
-
-  const watchedValues = watch();
 
   const handleFormSubmit = async (data: ProductFormData) => {
     setSubmitError(null);

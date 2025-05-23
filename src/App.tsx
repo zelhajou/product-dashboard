@@ -1,6 +1,6 @@
 // src/App.tsx - Updated with new dashboard route
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Dashboard, ProductList, ProductDetails, AddProduct, NotFound } from '@/pages/';
+import { ProductList, ProductDetails, AddProduct, NotFound } from '@/pages';
 
 function App() {
   return (

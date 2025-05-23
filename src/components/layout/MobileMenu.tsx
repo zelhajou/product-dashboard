@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Icons } from "@/components/icons";
 
@@ -8,11 +7,9 @@ interface MobileMenuProps {
 }
 
 const mobileNavItems = [
-  { label: "Dashboard", href: "/", icon: Icons.activity },
+  { label: "All Products", href: "/", icon: Icons.activity },
   { label: "All Products", href: "/products", icon: Icons.product },
   { label: "Add Product", href: "/add-product", icon: Icons.add },
-  { label: "Categories", href: "/categories", icon: Icons.settings },
-  { label: "Reports", href: "/reports", icon: Icons.barChart },
 ];
 
 export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {

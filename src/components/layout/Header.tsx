@@ -1,16 +1,18 @@
-// src/components/layout/Header.tsx - Updated for new layout
-import { useState } from "react";
-import { Icons } from "@/components/icons";
+import { Icons } from '@/components/icons';
+
+interface Breadcrumb {
+  label: string;
+  href?: string;
+}
 
 interface HeaderProps {
   onMenuClick: () => void;
   title?: string;
-  breadcrumbs?: Array<{ label: string; href?: string }>;
+  breadcrumbs?: Breadcrumb[];
 }
 
+// src/components/layout/Header.tsx - Updated for new layout
 export function Header({ onMenuClick, title, breadcrumbs }: HeaderProps) {
-  const [isSearchFocused, setIsSearchFocused] = useState(false);
-
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
       <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16">
@@ -28,7 +30,7 @@ export function Header({ onMenuClick, title, breadcrumbs }: HeaderProps) {
           {/* Breadcrumbs */}
           {breadcrumbs && (
             <nav className="hidden sm:flex items-center space-x-2 text-sm">
-              {breadcrumbs.map((crumb, index) => (
+              {breadcrumbs.map((crumb: Breadcrumb, index: number) => (
                 <div key={index} className="flex items-center">
                   {index > 0 && (
                     <Icons.chevronRight className="w-4 h-4 mx-2 text-gray-400" />

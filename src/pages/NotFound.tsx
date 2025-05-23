@@ -40,9 +40,6 @@ export function NotFound() {
           {/* Action Buttons */}
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button asChild leftIcon="activity" className="flex-1 sm:flex-none">
-                <Link to="/">Go to Dashboard</Link>
-              </Button>
 
               <Button variant="outline" asChild leftIcon="product" className="flex-1 sm:flex-none">
                 <Link to="/products">View Products</Link>

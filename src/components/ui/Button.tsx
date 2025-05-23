@@ -55,13 +55,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const LeftIconComponent = leftIcon ? Icons[leftIcon] : null;
     const RightIconComponent = rightIcon ? Icons[rightIcon] : null;
 
-    if (asChild) {
-      const child = children as React.ReactElement;
-      return React.cloneElement(child, {
-        className: combinedClassName,
-        ref,
-        ...props
-      });
+    if (asChild && React.isValidElement(children)) {
+      const element = children as React.ReactElement<any, any>;
+      const childProps = { ...props };
+      if ('className' in element.props) {
+        (childProps as any).className = combinedClassName;
+      }
+      return React.cloneElement(element, childProps);
     }
 
     return (

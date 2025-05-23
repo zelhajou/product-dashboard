@@ -192,7 +192,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           </div>
         </nav>
 
-        {/* User Profile Section - Absolutely positioned at bottom */}
+        {/* User Profile Section */}
         <div className="absolute bottom-0 left-0 right-0 border-t border-gray-200 p-4 bg-white">
           <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-all duration-200 cursor-pointer group">
             <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
