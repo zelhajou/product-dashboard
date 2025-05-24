@@ -64,7 +64,6 @@ export const searchValidation = {
 
 export const filtersSchema = z.object(searchValidation);
 
-// Custom validation helpers using shared constants
 export const validationHelpers = {
   // Check if price is reasonable
   isPriceReasonable: (price: number): boolean => {

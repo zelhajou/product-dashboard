@@ -114,11 +114,6 @@ export function ProductList() {
           title="Total Value"
           value={`${stats.totalValue.toLocaleString()}`}
           subtitle="Inventory worth"
-          trend={{
-            value: 12.5,
-            isPositive: true,
-            label: "vs last month",
-          }}
         />
 
         <StatsCard
