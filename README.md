@@ -1,51 +1,61 @@
 # Product Management Dashboard
 
-A modern, responsive product management dashboard built with React, TypeScript, and Tailwind CSS. This application provides a comprehensive solution for managing product inventory with powerful filtering, sorting, and analytics capabilities.
+A comprehensive, modern product management dashboard built with React, TypeScript, and Tailwind CSS. This application provides a complete solution for managing product inventory with advanced filtering, sorting, analytics, and professional UI/UX design.
 
 ![React](https://img.shields.io/badge/React-19.1.0-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue)
 ![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-4.1.7-blue)
 ![Vite](https://img.shields.io/badge/Vite-6.3.5-purple)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-## 🚀 Live Preview
+## 🚀 Live Demo
 
-**[View Live Demo](https://product-dashboard-h43f.vercel.app/)**
+**[View Live Application](https://product-dashboard-h43f.vercel.app/)**
 
-Experience the full functionality of the Product Management Dashboard with the live preview deployed on Vercel.
+Experience the full functionality of the Product Management Dashboard deployed on Vercel.
 
-## 🌟 Features
+## ✨ Key Features
 
-### Core Functionality
-- **Product List Management**: View all products in a responsive table with sorting and filtering
-- **Product Details**: Comprehensive product detail pages with full information display
-- **Add New Products**: Form-based product creation with validation
-- **Advanced Filtering**: Filter by category, status, stock level, and search by name
-- **Smart Sorting**: Sort by price, stock, name, and category
-- **Real-time Search**: Instant search results as you type
-- **Bulk Operations**: Select multiple products for bulk actions
+### 📊 Dashboard & Analytics
+- **Interactive Statistics Cards** - Real-time inventory metrics with animated alert indicators
+- **Visual Status Indicators** - Color-coded alerts for low stock and out-of-stock items
+- **Trend Analysis** - Month-over-month comparisons with directional indicators
+- **Live Data Updates** - Real-time status with animated pulse indicators
 
-### User Experience
-- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
-- **Modern UI**: Clean, intuitive interface with smooth animations
-- **Loading States**: Professional loading indicators and skeleton screens
-- **Error Handling**: Comprehensive error states and user feedback
-- **Interactive Dashboard**: Statistics cards and quick action buttons
-- **Collapsible Sidebar**: Expandable/collapsible navigation with tooltips
+### 📋 Product Management
+- **Product Listing** - Comprehensive table view with advanced sorting capabilities
+- **Product Details** - Detailed product pages with comprehensive information display
+- **Add Products** - Intuitive form with real-time validation and preview
+- **Bulk Operations** - Multi-select functionality for efficient bulk management
+- **Status Management** - Active/archived product status with visual indicators
 
-### Technical Features
-- **TypeScript**: Full type safety throughout the application
-- **State Management**: Zustand for efficient global state management
-- **Form Validation**: Zod schema validation with React Hook Form
-- **Routing**: React Router with protected routes and navigation
-- **Icons**: Lucide React icon system
-- **Testing**: Vitest with React Testing Library
-- **Accessibility**: ARIA labels and keyboard navigation support
+### 🔍 Advanced Search & Filtering
+- **Smart Search** - Real-time search across product names, categories, and descriptions
+- **Multi-Filter System** - Filter by category, status, and stock levels simultaneously
+- **Compact Filter Design** - Space-efficient horizontal layout with intuitive controls
+- **Active Filter Management** - Visual filter chips with individual remove options
+- **Quick Clear Actions** - One-click filter clearing with smart reset functionality
+
+### 🎨 Modern UI/UX
+- **Professional Design** - Clean, modern interface following current design trends
+- **Skeleton Loading** - Comprehensive loading states for all major components
+- **Responsive Design** - Mobile-first approach with perfect adaptability across devices
+- **Smooth Animations** - Micro-interactions and hover effects throughout the interface
+- **Accessibility Compliant** - WCAG guidelines with keyboard navigation and screen reader support
+
+### 🛠️ Technical Excellence
+- **Type Safety** - 100% TypeScript implementation with strict type checking
+- **State Management** - Efficient Zustand store with persistent state
+- **Form Validation** - Zod schema validation with React Hook Form integration
+- **Error Handling** - Comprehensive error boundaries and user feedback
+- **Testing Ready** - Complete testing setup with Vitest and React Testing Library
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js (version 18 or higher)
+- Node.js 18.0 or higher
 - npm or yarn package manager
+- Modern web browser with JavaScript enabled
 
 ### Installation
 
@@ -60,163 +70,225 @@ Experience the full functionality of the Product Management Dashboard with the l
    npm install
    ```
 
-3. **Start the development server**
+3. **Start development server**
    ```bash
    npm run dev
    ```
 
-4. **Open your browser**
-   Navigate to `http://localhost:5173`
+4. **Open application**
+   Navigate to `http://localhost:5173` in your browser
 
 ## 📋 Available Scripts
 
+### Development
 ```bash
-# Development
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run preview      # Preview production build
-npm run lint         # Run ESLint
-
-# Testing
-npm run test         # Run tests
-npm run test:ui      # Run tests with UI
-npm run test:coverage # Run tests with coverage
-npm run test:watch   # Run tests in watch mode
-
-# Type Checking
-tsc --noEmit        # Type check without building
+npm run dev          # Start development server with hot reload
+npm run build        # Build for production with optimizations
+npm run preview      # Preview production build locally
+npm run lint         # Run ESLint with TypeScript support
 ```
 
-## 🏗️ Project Structure
+### Testing
+```bash
+npm run test         # Run complete test suite
+npm run test:ui      # Run tests with interactive UI
+npm run test:coverage # Generate detailed coverage report
+npm run test:watch   # Run tests in watch mode for development
+```
+
+### Type Checking
+```bash
+tsc --noEmit        # Type check without building output
+```
+
+## 🏗️ Project Architecture
 
 ```
 src/
 ├── components/           # Reusable UI components
-│   ├── common/          # Common components (alerts, cards, loading, etc.)
-│   ├── icons/           # Icon system and exports
-│   ├── layout/          # Layout components (header, sidebar, containers)
+│   ├── common/          # Shared components
+│   │   ├── StatsCard.tsx        # Analytics display cards
+│   │   ├── Skeleton.tsx         # Loading state components
+│   │   ├── AlertCard.tsx        # Notification components
+│   │   ├── EmptyState.tsx       # Empty state handlers
+│   │   ├── LoadingSpinner.tsx   # Loading indicators
+│   │   └── Breadcrumb.tsx       # Navigation breadcrumbs
+│   ├── icons/           # Icon system with Lucide React
+│   ├── layout/          # Application layout components
+│   │   ├── Layout.tsx           # Main application wrapper
+│   │   ├── Header.tsx           # Top navigation bar
+│   │   ├── Sidebar.tsx          # Collapsible navigation
+│   │   └── ResponsiveContainer.tsx # Responsive content wrapper
 │   ├── product/         # Product-specific components
-│   └── ui/              # Base UI components (buttons, inputs, tables)
-├── data/                # Mock data and API utilities
+│   │   ├── ProductFilters.tsx   # Advanced filtering system
+│   │   ├── ProductForm.tsx      # Product creation/editing
+│   │   └── ProductTable.tsx     # Product data table
+│   └── ui/              # Base UI components
+│       ├── Button.tsx           # Reusable button component
+│       ├── Input.tsx            # Form input component
+│       ├── Select.tsx           # Dropdown select component
+│       ├── Table.tsx            # Table components
+│       └── Pagination.tsx       # Pagination controls
+├── data/                # Mock data and utilities
+│   └── mockData.ts             # Sample product data
 ├── hooks/               # Custom React hooks
-├── pages/               # Page components and routing
-│   └── products/        # Product-related pages
+│   ├── useProductList.ts       # Product list management
+│   ├── useProductDetails.ts    # Individual product handling
+│   ├── useProductForm.ts       # Form state management
+│   ├── useProductStats.ts      # Analytics calculations
+│   └── useResponsive.ts        # Responsive design utilities
+├── pages/               # Application pages
+│   ├── products/        # Product-related pages
+│   │   ├── ProductList.tsx     # Main product listing
+│   │   ├── ProductDetails.tsx  # Individual product view
+│   │   └── AddProduct.tsx      # Product creation form
+│   └── NotFound.tsx            # 404 error page
 ├── shared/              # Shared utilities and constants
-├── store/               # Zustand state management
-├── test/                # Test utilities and setup
+│   ├── constants.ts            # Application constants
+│   └── types.ts               # Shared type definitions
+├── store/               # State management
+│   └── productStore.ts         # Zustand product store
 ├── types/               # TypeScript type definitions
-└── utils/               # Helper functions and utilities
+│   └── product.ts              # Product-related types
+├── utils/               # Utility functions
+│   ├── helpers.ts              # General helper functions
+│   └── validation.ts           # Validation schemas
+└── test/                # Testing utilities
+    ├── setup.ts               # Test configuration
+    └── utils.ts               # Test helper functions
 ```
 
 ## 🛠️ Technology Stack
 
-### Frontend Framework
-- **React 19.1.0** - Latest React with concurrent features
-- **TypeScript 5.8.3** - Type safety and developer experience
-- **Vite 6.3.5** - Fast build tool and development server
+### Core Framework
+- **React 19.1.0** - Latest React with concurrent features and improved performance
+- **TypeScript 5.8.3** - Full type safety with strict configuration
+- **Vite 6.3.5** - Lightning-fast build tool with hot module replacement
 
-### Styling & UI
-- **Tailwind CSS 4.1.7** - Utility-first CSS framework
-- **Lucide React 0.511.0** - Beautiful, customizable icons
+### Styling & Design
+- **Tailwind CSS 4.1.7** - Utility-first CSS framework with JIT compilation
+- **Lucide React 0.511.0** - Modern icon library with consistent design
+- **Custom Animations** - CSS transitions and transforms for smooth interactions
 
-### State Management & Forms
-- **Zustand 5.0.5** - Lightweight state management
-- **React Hook Form 7.56.4** - Performant forms with validation
-- **Zod 3.25.20** - Schema validation library
+### State & Forms
+- **Zustand 5.0.5** - Lightweight state management with persistence
+- **React Hook Form 7.56.4** - Performant forms with minimal re-renders
+- **Zod 3.25.20** - Runtime type validation with TypeScript integration
 
 ### Routing & Navigation
-- **React Router DOM 7.6.0** - Declarative routing for React
+- **React Router DOM 7.6.0** - Client-side routing with nested routes
 
 ### Development & Testing
-- **ESLint** - Code linting and formatting
-- **TypeScript ESLint** - TypeScript-specific linting rules
-- **Vitest** - Fast unit testing framework
-- **React Testing Library** - Testing utilities for React
-- **Vite Plugins** - Development and build optimizations
+- **ESLint** - Code linting with TypeScript support
+- **Vitest 2.1.9** - Fast unit testing framework
+- **React Testing Library 16.3.0** - Component testing utilities
+- **JSDOM** - DOM environment for testing
 
-## 📱 Pages & Routes
+## 📱 Application Pages
 
-| Route | Component | Description |
-|-------|-----------|-------------|
-| `/` | ProductList | Redirects to products list |
-| `/products` | ProductList | Main product listing page |
-| `/product/:id` | ProductDetails | Individual product details |
-| `/add-product` | AddProduct | Add new product form |
-| `/not-found` | NotFound | 404 error page |
-| `*` | NotFound | Catch-all for unknown routes |
+### Product Management
+| Route | Component | Description | Features |
+|-------|-----------|-------------|----------|
+| `/` | Redirect | Redirects to products list | Automatic navigation |
+| `/products` | ProductList | Main product listing | Filtering, sorting, pagination, bulk actions |
+| `/product/:id` | ProductDetails | Individual product view | Detailed information, quick actions, stock alerts |
+| `/add-product` | AddProduct | Product creation form | Validation, preview, progress tracking |
+| `/not-found` | NotFound | 404 error page | Helpful navigation and recovery options |
 
-## 🎯 Component Architecture
+### Navigation Features
+- **Breadcrumb Navigation** - Clear page hierarchy with clickable links
+- **Responsive Sidebar** - Collapsible navigation with statistics
+- **Smart Redirects** - Automatic routing and error handling
+- **Deep Linking** - Direct access to specific products and pages
+
+## 🎨 Design System
+
+### Color Palette
+```css
+/* Primary Colors */
+--blue-primary: #3B82F6;     /* Main actions and links */
+--blue-secondary: #1E40AF;   /* Hover states and emphasis */
+
+/* Status Colors */
+--green-success: #10B981;    /* Success states and positive metrics */
+--yellow-warning: #F59E0B;   /* Warnings and low stock alerts */
+--red-danger: #EF4444;       /* Errors and critical states */
+
+/* Neutral Colors */
+--gray-50: #F9FAFB;          /* Light backgrounds */
+--gray-500: #6B7280;         /* Secondary text */
+--gray-900: #111827;         /* Primary text */
+```
+
+### Typography
+- **Headings** - Font weights from 600-700 with clear hierarchy
+- **Body Text** - 14px base with 1.5 line height for readability
+- **Monospace** - Used for numerical values and IDs
+- **Responsive Sizing** - Scales appropriately across device sizes
+
+### Spacing System
+- **4px Grid** - All spacing follows 4px increments (4, 8, 12, 16, 24, 32, 48, 64)
+- **Consistent Margins** - Standardized gaps between components
+- **Responsive Padding** - Adapts to screen size with mobile-first approach
+
+## 🔧 Component Library
 
 ### Layout Components
-- **Layout**: Main application layout wrapper with sidebar
-- **Header**: Top navigation with breadcrumbs and user menu
-- **Sidebar**: Collapsible navigation sidebar with statistics
-- **ResponsiveContainer**: Responsive content wrapper
-- **PageContainer**: Page layout with header and breadcrumbs
+- **Layout** - Main application wrapper with sidebar and header
+- **Header** - Top navigation with breadcrumbs and user controls
+- **Sidebar** - Collapsible navigation with statistics and menu items
+- **ResponsiveContainer** - Flexible content wrapper with breakpoints
 
-### Product Components
-- **ProductTable**: Sortable, filterable product table with bulk actions
-- **ProductFilters**: Advanced filtering interface with stock level filters
-- **ProductForm**: Add/edit product form with validation and preview
+### Data Display
+- **StatsCard** - Analytics cards with icons, values, and trend indicators
+- **ProductTable** - Advanced table with sorting, filtering, and bulk selection
+- **EmptyState** - Helpful empty state with actions and illustrations
+- **AlertCard** - Notifications and alerts with different severity levels
 
-### UI Components
-- **Button**: Versatile button component with variants and icons
-- **Input**: Form input with validation states and icons
-- **Select**: Dropdown select component with validation
-- **Table**: Accessible table components with sorting
-- **Pagination**: Page navigation component
+### Form Components
+- **ProductForm** - Complete product creation/editing with validation
+- **ProductFilters** - Advanced filtering with search and dropdown controls
+- **Button** - Flexible button component with variants and icons
+- **Input** - Form input with validation states and helper text
+- **Select** - Dropdown component with search and custom options
 
-### Common Components
-- **StatsCard**: Dashboard statistics cards with click actions
-- **AlertCard**: User notifications and alerts with actions
-- **EmptyState**: No-data state handler with actions
-- **LoadingSpinner**: Loading indicators with messages
-- **Breadcrumb**: Navigation breadcrumb component
-
-## 🔧 Configuration
-
-### TypeScript Configuration
-The project uses strict TypeScript configuration with:
-- Path mapping for clean imports (`@/components`, `@/types`, etc.)
-- Strict type checking enabled
-- ES2020 target for modern JavaScript features
-
-### Tailwind CSS
-Custom Tailwind configuration with:
-- Design system colors and spacing
-- Responsive breakpoints
-- Custom component classes
-- Utility-first approach
-
-### Vite Configuration
-Optimized Vite setup with:
-- Path aliases matching TypeScript configuration
-- React plugin for Fast Refresh
-- Tailwind CSS plugin for styling
-- Optimized build settings
+### Loading States
+- **Skeleton System** - Comprehensive loading placeholders
+  - `SkeletonCard` - For statistics and card components  
+  - `SkeletonTable` - For data tables and lists
+  - `SkeletonStats` - For dashboard statistics grid
+  - `SkeletonProductDetails` - For detailed product pages
+  - `SkeletonFilter` - For filter and search components
 
 ## 📊 State Management
 
 ### Zustand Store Structure
 ```typescript
 interface ProductStore {
-  // State
+  // Core Data
   products: Product[]
   filteredProducts: Product[]
   isLoading: boolean
   error: string | null
-  filters: ProductFilters
-  sortConfig: SortConfig
   lastUpdated: Date | null
 
-  // Actions
+  // Filtering & Sorting  
+  filters: ProductFilters
+  sortConfig: SortConfig
+
+  // Core Actions
   loadProducts: () => Promise<void>
   addProduct: (data: ProductFormData) => Promise<void>
+  setProducts: (products: Product[]) => void
+  
+  // Filter Management
   updateFilters: (filters: Partial<ProductFilters>) => void
   updateSort: (config: SortConfig) => void
   clearFilters: () => void
-  
-  // Analytics
+  applyFiltersAndSort: () => void
+
+  // Data Retrieval
+  getProductById: (id: number) => Product | undefined
   getProductStats: () => ProductStats
   getLowStockProducts: () => Product[]
   getTopProducts: (limit?: number) => Product[]
@@ -224,141 +296,178 @@ interface ProductStore {
 ```
 
 ### Custom Hooks
-- **useProductList**: Complete product list management with filtering
-- **useProductDetails**: Individual product data handling with loading states
-- **useProductForm**: Form state and submission logic
-- **useProductStats**: Analytics and statistics calculations
-- **useResponsive**: Responsive design utilities
-- **useSidebar**: Sidebar state management
+- **useProductList** - Complete product list management with filtering and sorting
+- **useProductDetails** - Individual product data handling with loading states
+- **useProductForm** - Form state management with validation and submission
+- **useProductStats** - Analytics calculations and statistics formatting
+- **useResponsive** - Responsive design utilities and breakpoint detection
 
-## 🧪 Testing
+## 🔍 Advanced Features
 
-### Testing Setup
-- **Vitest**: Fast unit testing framework
-- **React Testing Library**: Component testing utilities
-- **@testing-library/jest-dom**: Additional Jest matchers
-- **jsdom**: DOM environment for testing
-
-### Test Coverage
-- Minimum 80% coverage thresholds
-- Automated coverage reporting
-- Test utilities for mock data creation
-
-### Running Tests
-```bash
-npm run test           # Run all tests
-npm run test:ui        # Run tests with visual UI
-npm run test:coverage  # Generate coverage report
-npm run test:watch     # Run tests in watch mode
+### Filtering System
+```typescript
+interface ProductFilters {
+  category: string        // Filter by product category
+  status: string         // Filter by active/archived status
+  searchTerm: string     // Search across name and category
+  stockLevel: string     // Filter by stock level (high/low/out)
+}
 ```
 
-## ✅ Feature Implementation Status
+### Search Capabilities
+- **Real-time Search** - Instant results as you type
+- **Multi-field Search** - Searches across product name, category, and description
+- **Search Highlighting** - Visual indication of search terms in results
+- **Search History** - Maintains search state across navigation
 
-### Core Features (100% Complete)
-- ✅ **Product List Page** (`/products`)
-  - Table format display with all product information
-  - Filter by category, status, and stock level
-  - Search by product name
-  - Sort by price, stock, name, and category
-  - Bulk selection and operations
-  - Click navigation to product details
+### Sorting Options
+- **Multi-column Sorting** - Sort by name, price, stock, category
+- **Sort Direction** - Ascending and descending order with visual indicators
+- **Persistent Sorting** - Maintains sort preferences across sessions
+- **Smart Sorting** - Intelligent sorting for different data types
 
-- ✅ **Product Details Page** (`/product/:id`)
-  - Complete product information display
-  - Stock status indicators and alerts
-  - Quick action buttons
-  - 404 handling for non-existent products
-  - Return to product list functionality
+### Stock Management
+```typescript
+// Stock Level Categorization
+enum StockLevel {
+  HIGH = "high",      // > 20 units
+  LOW = "low",        // 1-10 units  
+  OUT = "out"         // 0 units
+}
+```
 
-- ✅ **Add Product Page** (`/add-product`)
-  - Complete form with all required fields
-  - Real-time validation with error messages
-  - Product preview sidebar
-  - Form completion progress indicator
-  - Comprehensive validation:
-    - Name is required (2-100 characters)
-    - Price must be greater than 0
-    - Stock must be non-negative integer
-    - Category is required
-    - Status must be 'active' or 'archived'
+## 🧪 Testing Strategy
 
-- ✅ **Routing System**
-  - All required routes implemented
-  - Proper redirects (`/` → `/products`)
-  - 404 page for unknown routes
-  - React Router DOM integration
+### Test Coverage
+- **Unit Tests** - Individual component and function testing
+- **Integration Tests** - Component interaction and data flow testing
+- **Accessibility Tests** - Screen reader and keyboard navigation testing
+- **Visual Regression** - UI consistency and design system compliance
 
-### Technical Requirements (100% Complete)
-- ✅ **React + TypeScript**: Latest versions with strict typing
-- ✅ **Modular Architecture**: Clean, reusable component structure
-- ✅ **Mock API Simulation**: `setTimeout` and `Promise.resolve()` usage
-- ✅ **Local Data Storage**: Zustand with persistence
+### Testing Utilities
+```typescript
+// Mock Data Generation
+export const createMockProduct = (overrides: Partial<Product> = {}): Product => ({
+  id: 1,
+  name: "Test Product",
+  price: 99.99,
+  stock: 10,
+  category: "Electronics", 
+  status: "active",
+  ...overrides,
+});
+```
 
-### Advanced Features (100% Complete)
-- ✅ **Tailwind CSS Styling**: Modern, responsive design
-- ✅ **Zustand State Management**: Efficient global state with persistence
-- ✅ **React Hook Form + Zod**: Professional form handling and validation
-- ✅ **Loading States**: Comprehensive loading indicators and skeleton screens
-- ✅ **Error Handling**: User-friendly error states and recovery
-- ✅ **Responsive Design**: Mobile-first approach with breakpoint utilities
-- ✅ **Advanced Filtering**: Multiple filter combinations including stock levels
-- ✅ **Analytics Dashboard**: Statistics cards with interactive elements
-- ✅ **Testing Suite**: Comprehensive test setup with utilities
+## 📱 Responsive Design
 
-## 🎨 Design System
+### Breakpoint System
+```css
+/* Mobile First Approach */
+sm: 640px   /* Small tablets and large phones */
+md: 768px   /* Tablets */
+lg: 1024px  /* Small laptops */
+xl: 1280px  /* Desktops */
+2xl: 1536px /* Large desktops */
+```
 
-### Color Palette
-- **Primary**: Blue shades for main actions and navigation
-- **Secondary**: Gray shades for neutral elements
-- **Success**: Green for positive actions and status
-- **Warning**: Yellow for cautions and low stock alerts
-- **Error**: Red for errors and critical states
+### Mobile Optimizations
+- **Touch Targets** - Minimum 44px touch areas for mobile interactions
+- **Responsive Tables** - Tables adapt to smaller screens with horizontal scrolling
+- **Collapsible Navigation** - Sidebar converts to overlay on mobile devices
+- **Optimized Forms** - Form layouts stack vertically on small screens
 
-### Typography
-- **Headings**: Bold, hierarchical sizing with proper contrast
-- **Body Text**: Readable, accessible contrast ratios
-- **Monospace**: Used for numerical values and IDs
+### Tablet & Desktop
+- **Multi-column Layouts** - Efficient use of larger screen real estate
+- **Hover Interactions** - Enhanced hover states for desktop users
+- **Keyboard Navigation** - Full keyboard accessibility for power users
+- **Multi-tasking Support** - Optimized for side-by-side window usage
 
-### Components
-- **Cards**: Elevated surfaces with consistent shadows
-- **Buttons**: Multiple variants with consistent sizing and icons
-- **Forms**: Clear labels with comprehensive validation states
-- **Tables**: Responsive design with sorting indicators
-- **Icons**: Consistent icon system from Lucide React
+## 🚀 Performance Optimizations
+
+### Loading Performance
+- **Code Splitting** - Route-based lazy loading ready for implementation  
+- **Tree Shaking** - Unused code elimination in production builds
+- **Asset Optimization** - Minified CSS and JavaScript bundles
+- **Skeleton Loading** - Perceived performance improvement with loading placeholders
+
+### Runtime Performance  
+- **Efficient Rendering** - Strategic use of React.memo and useMemo
+- **State Optimization** - Zustand with selective subscriptions
+- **Animation Performance** - CSS transforms with GPU acceleration
+- **Memory Management** - Proper cleanup of event listeners and subscriptions
+
+### Bundle Analysis
+```bash
+# Analyze bundle size and composition
+npm run build
+npm run preview
+```
 
 ## 🔒 Data Validation
 
 ### Product Schema
 ```typescript
-{
-  name: string (2-100 chars, required, alphanumeric + basic symbols)
-  price: number (>0, max $999,999.99, 2 decimal places)
-  stock: number (>=0, integer, max 999,999)
-  category: string (required, max 50 chars)
-  status: 'active' | 'archived' (required)
-}
+const productSchema = z.object({
+  name: z.string()
+    .min(2, "Minimum 2 characters")
+    .max(100, "Maximum 100 characters")
+    .regex(/^[a-zA-Z0-9\s\-_&.()]+$/, "Invalid characters"),
+    
+  price: z.number()
+    .min(0.01, "Price must be greater than 0")
+    .max(999999.99, "Price too high")
+    .refine(val => Number((val * 100).toFixed(0)) / 100 === val, 
+            "Maximum 2 decimal places"),
+            
+  stock: z.number()
+    .int("Must be whole number")
+    .min(0, "Cannot be negative")
+    .max(999999, "Stock limit exceeded"),
+    
+  category: z.string()
+    .min(1, "Category required")
+    .max(50, "Category name too long"),
+    
+  status: z.enum(["active", "archived"])
+});
 ```
 
 ### Form Validation Features
-- Real-time validation feedback
-- Comprehensive error message display
-- Prevention of invalid submissions
-- Success state indicators
-- Input sanitization and formatting
-
-## 🚀 Performance Optimizations
-
-- **Code Splitting**: Route-based lazy loading
-- **State Management**: Efficient Zustand selectors prevent unnecessary re-renders
-- **Form Optimization**: React Hook Form reduces re-renders
-- **Memoization**: Strategic use of React.memo for expensive components
-- **Optimized Builds**: Vite's fast bundling and tree-shaking
-- **Image Optimization**: Prepared for future image upload features
+- **Real-time Validation** - Immediate feedback as user types
+- **Error Messages** - Clear, actionable error descriptions
+- **Success States** - Visual confirmation of valid inputs
+- **Accessibility** - ARIA labels and screen reader support
 
 ## 🌐 Deployment
 
-The application is configured for deployment on Vercel with:
-- Automatic builds from Git repository
-- SPA routing configuration
-- Environment variable support
-- Optimized build output
+### Production Build
+```bash
+npm run build        # Create optimized production build
+npm run preview      # Test production build locally
+```
+
+### Vercel Deployment
+- **Automatic Builds** - Triggered by Git pushes to main branch
+- **SPA Configuration** - Proper routing setup for single-page application
+- **Environment Variables** - Support for different deployment environments
+- **Performance Monitoring** - Built-in analytics and performance tracking
+
+## 🔧 Configuration Files
+
+### TypeScript Configuration
+- **Strict Mode** - Enabled for maximum type safety
+- **Path Mapping** - Clean imports with `@/` aliases
+- **Modern Target** - ES2020 for modern JavaScript features
+- **Build Optimization** - Optimized for both development and production
+
+### ESLint Configuration
+- **TypeScript Support** - Full TypeScript linting integration
+- **React Rules** - React-specific linting rules and best practices
+- **Custom Rules** - Project-specific linting configurations
+- **Auto-fixing** - Automatic code formatting and error correction
+
+### Tailwind Configuration
+- **Design System** - Custom colors, spacing, and typography scales
+- **Responsive Design** - Mobile-first breakpoint system
+- **Component Classes** - Reusable component-level styling
+- **Production Optimization** - Automatic unused CSS elimination
