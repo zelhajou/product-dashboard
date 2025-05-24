@@ -85,7 +85,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               </div>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900 tracking-tight">ProductSync</h1>
+              <h1 className="text-xl font-bold text-gray-900 tracking-tight">Products</h1>
               <p className="text-xs text-gray-500 font-medium">Management Suite</p>
             </div>
           </div>
@@ -198,7 +198,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                 Admin User
               </p>
               <p className="text-xs text-gray-500 truncate group-hover:text-gray-600">
-                admin@ProductSync.com
+                admin@Product.com
               </p>
             </div>
             <Icons.settings className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors flex-shrink-0" />

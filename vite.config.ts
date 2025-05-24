@@ -19,6 +19,7 @@ export default defineConfig({
       '@/store': path.resolve(__dirname, './src/store'),
       '@/data': path.resolve(__dirname, './src/data'),
       '@/shared': path.resolve(__dirname, './src/shared'),
+      '@/test': path.resolve(__dirname, './src/test'),
     },
   },
 })

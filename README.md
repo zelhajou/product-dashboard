@@ -2,7 +2,7 @@
 
 A modern, responsive product management dashboard built with React, TypeScript, and Tailwind CSS. This application provides a comprehensive solution for managing product inventory with powerful filtering, sorting, and analytics capabilities.
 
-![ProductSync Dashboard](https://img.shields.io/badge/React-19.1.0-blue)
+![Product Dashboard](https://img.shields.io/badge/React-19.1.0-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue)
 ![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-4.1.7-blue)
 ![Vite](https://img.shields.io/badge/Vite-6.3.5-purple)

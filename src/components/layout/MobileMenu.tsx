@@ -41,7 +41,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               <Icons.product className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900">ProductSync</h2>
+              <h2 className="text-xl font-bold text-gray-900">Products</h2>
               <p className="text-xs text-gray-500">Management Dashboard</p>
             </div>
           </div>
@@ -94,7 +94,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             </div>
             <div className="flex-1">
               <p className="text-sm font-medium text-gray-900">Admin User</p>
-              <p className="text-xs text-gray-500">admin@ProductSync.com</p>
+              <p className="text-xs text-gray-500">admin@Product.com</p>
             </div>
           </div>
         </div>
