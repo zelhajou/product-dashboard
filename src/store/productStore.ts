@@ -89,7 +89,8 @@ export const useProductStore = create<ProductStore>()(
             console.log("New products added:", newProducts.length);
             console.log("Total products after merge:", sortedProducts.length);
             
-          } catch (error) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          } catch (err) {
             set({
               error: "Failed to load products",
               isLoading: false,
@@ -120,12 +121,12 @@ export const useProductStore = create<ProductStore>()(
             console.log("Product added:", newProduct);
             console.log("Total products:", updatedProducts.length);
             
-          } catch (error) {
+          } catch (err) {
             set({
               error: "Failed to add product",
               isLoading: false,
             });
-            throw error;
+            throw err;
           }
         },
 
@@ -187,7 +188,7 @@ export const useProductStore = create<ProductStore>()(
           console.log("Current filters:", filters);
 
           // Enhanced filtering with stock level support
-          let filtered = products.filter((product) => {
+          const filtered = products.filter((product) => {
             // Search term matching
             if (filters.searchTerm) {
               const searchLower = filters.searchTerm.toLowerCase();

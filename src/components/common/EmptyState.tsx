@@ -68,7 +68,7 @@ export function EmptyState({
           {primaryAction && (
             <Button
               onClick={primaryAction.onClick}
-              leftIcon={primaryAction.icon as any}
+              leftIcon={primaryAction.icon as "add" | "close" | undefined}
               className="transition-colors focus:ring-2 focus:ring-blue-400"
             >
               {primaryAction.label}
@@ -78,7 +78,7 @@ export function EmptyState({
             <Button
               variant="outline"
               onClick={secondaryAction.onClick}
-              leftIcon={secondaryAction.icon as any}
+              leftIcon={secondaryAction.icon as "add" | "close" | undefined}
               className="transition-colors focus:ring-2 focus:ring-blue-400"
             >
               {secondaryAction.label}

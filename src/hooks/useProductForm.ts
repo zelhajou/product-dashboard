@@ -8,17 +8,13 @@ export function useProductForm() {
   const isLoading = useProductStore((state) => state.isLoading);
 
   const handleSubmit = async (data: ProductFormData) => {
-    try {
-      await addProduct(data);
-      navigate("/products", {
-        state: {
-          message: `Product "${data.name}" has been added successfully!`,
-          type: "success",
-        },
-      });
-    } catch (error) {
-      throw error;
-    }
+    await addProduct(data);
+    navigate("/products", {
+      state: {
+        message: `Product "${data.name}" has been added successfully!`,
+        type: "success",
+      },
+    });
   };
 
   const handleCancel = () => {

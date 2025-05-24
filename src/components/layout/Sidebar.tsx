@@ -7,7 +7,7 @@ import { Package, Plus, User, Settings, X, Menu } from "lucide-react";
 interface NavItem {
   label: string;
   href: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<{ className?: string }>;
   badge?: number;
   description?: string;
 }

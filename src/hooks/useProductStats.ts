@@ -3,7 +3,6 @@ import { useProductStore } from "@/store";
 import { formatters } from "@/utils";
 
 export function useProductStats() {
-  const products = useProductStore((state) => state.products);
   const getProductStats = useProductStore((state) => state.getProductStats);
   const getLowStockProducts = useProductStore(
     (state) => state.getLowStockProducts
@@ -32,5 +31,5 @@ export function useProductStats() {
       // Raw stats for calculations
       rawStats: stats,
     };
-  }, [products, getProductStats, getLowStockProducts]);
+  }, [getProductStats, getLowStockProducts]);
 }
