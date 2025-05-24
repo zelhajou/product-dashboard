@@ -9,7 +9,6 @@ export {
   TableHeaderCell,
   TableCell,
 } from "./Table";
-export { ResponsiveGrid } from './ResponsiveGrid';
 export { Pagination } from './Pagination';
 
 export type { ButtonProps } from "./Button";
