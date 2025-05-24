@@ -128,11 +128,11 @@ export function ProductList() {
             title="Total Products"
             value={stats.total}
             subtitle="Active inventory items"
-            trend={{
-              value: 12,
-              isPositive: true,
-              label: "vs last month",
-            }}
+            // trend={{
+            //   value: 12,
+            //   isPositive: true,
+            //   label: "vs last month",
+            // }}
             onClick={handleAllProductsClick}
           />
 
@@ -142,11 +142,6 @@ export function ProductList() {
             title="Total Value"
             value={`$${stats.totalValue.toLocaleString()}`}
             subtitle="Inventory worth"
-            trend={{
-              value: 8,
-              isPositive: true,
-              label: "vs last month",
-            }}
           />
 
           <StatsCard
