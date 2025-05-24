@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useProductDetails } from "@/hooks";
 import { Button } from "@/components/ui";
 import { Layout } from "@/components/layout";
-import { LoadingSpinner, EmptyState } from "@/components/common";
+import { EmptyState, SkeletonProductDetails } from "@/components/common";
 import { Icons } from "@/components/icons";
 
 export function ProductDetails() {
@@ -17,9 +17,7 @@ export function ProductDetails() {
           { label: "Loading..." },
         ]}
       >
-        <div className="flex items-center justify-center py-20">
-          <LoadingSpinner size="lg" />
-        </div>
+        <SkeletonProductDetails />
       </Layout>
     );
   }
