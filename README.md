@@ -11,7 +11,7 @@ A modern product management dashboard built with React, TypeScript, and Tailwind
 
 ## 🚀 Live Demo
 
-**[View Live Application](https://product-dashboard-h43f.vercel.app/)**
+**[View Live Application](https://product-dashboard-rho.vercel.app/)**
 
 Experience the full functionality of the Product Management Dashboard deployed on Vercel.
 
